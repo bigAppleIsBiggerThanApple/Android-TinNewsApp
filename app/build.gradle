@@ -21,7 +21,8 @@ android {
 
 ext {
     googleVersion = '26.1.0'
-
+    retrofitVersion = '2.2.0'
+    rxjavaVersion = '2.0.1'
 }
 
 
@@ -44,5 +45,17 @@ dependencies {
     implementation 'com.mindorks:placeholderview:0.7.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "com.android.support:cardview-v7:${googleVersion}"
+
+
+
+// retrofit and rxjava dependency
+    implementation "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxjavaVersion}"
+
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+// end here
+
 
 }
