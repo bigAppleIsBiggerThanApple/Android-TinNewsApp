@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
@@ -24,7 +28,6 @@ ext {
     retrofitVersion = '2.2.0'
     rxjavaVersion = '2.0.1'
 }
-
 
 
 dependencies {
