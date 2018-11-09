@@ -19,6 +19,5 @@ public interface NewsDao {
 
     @Query("SELECT * FROM news")
     Flowable<List<News>> getAll();
-}
 
 }

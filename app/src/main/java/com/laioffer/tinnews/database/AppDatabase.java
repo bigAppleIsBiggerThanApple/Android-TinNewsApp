@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 import com.laioffer.tinnews.retrofit.response.News;
 
 //7.5
-@Database(entities = {News.class}, version = 1)
+@Database(entities = {News.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract NewsDao newsDao();
 }
