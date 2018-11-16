@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 //7.6 modify the News class
 @Entity(tableName = "news")
-public class News {
+public class News implements Serializable {
     public String author;
     @NonNull
     @PrimaryKey

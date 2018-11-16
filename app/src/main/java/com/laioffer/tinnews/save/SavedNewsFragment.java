@@ -3,6 +3,8 @@ package com.laioffer.tinnews.save;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,15 @@ import android.widget.TextView;
 
 import com.laioffer.tinnews.R;
 import com.laioffer.tinnews.common.TinBasicFragment;
+import com.laioffer.tinnews.common.ViewModelAdapter;
 import com.laioffer.tinnews.mvp.MvpFragment;
 import com.laioffer.tinnews.retrofit.response.News;
+import com.laioffer.tinnews.save.SavedNewsAdapter;
 import com.laioffer.tinnews.save.SavedNewsContract;
 import com.laioffer.tinnews.save.SavedNewsPresenter;
 import com.laioffer.tinnews.save.detail.SavedNewsDetailedFragment;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,9 +28,8 @@ import java.util.List;
  */
 public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> implements SavedNewsContract.View {
 
-    private TextView author;
-    private TextView description;
-
+    private ViewModelAdapter savedNewsAdapter;
+    private TextView emptyState;
 
     public static SavedNewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -39,46 +43,13 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_saved_news, container, false);
-        author = view.findViewById(R.id.author);
-        description = view.findViewById(R.id.description);
-        description.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinFragmentManager.doFragmentTransaction(SavedNewsDetailedFragment.newInstance());
-            }
-        });
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        emptyState = view.findViewById(R.id.empty_state);
+        savedNewsAdapter = new ViewModelAdapter();
+        recyclerView.setAdapter(savedNewsAdapter);
         return view;
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
@@ -88,10 +59,18 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
 
     @Override
     public void loadSavedNews(List<News> newsList) {
-        if (newsList.size() > 0) {
-            News news = newsList.get(newsList.size() - 1);
-            author.setText(news.getAuthor());
-            description.setText(news.getDescription());
+        if (newsList.size() == 0) {
+            emptyState.setVisibility(View.VISIBLE);
+        } else {
+            emptyState.setVisibility(View.GONE);
         }
+        if (newsList.size() != 0){
+            List<SavedNewsViewModel> models = new LinkedList<>();
+            for (News news : newsList){
+                models.add(new SavedNewsViewModel(news, tinFragmentManager));
+            }
+            savedNewsAdapter.addViewModels(models);
+        }
+
     }
 }
