@@ -52,7 +52,7 @@ public class TinModel implements TinContract.Model {
     public void saveFavoriteNews(News news) {
         Disposable disposable = Completable.fromAction(() -> db.newsDao().insertNews(news)).
                 subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(() ->{
-
+            System.out.print("xx");
         }, error -> {
         });
     }
