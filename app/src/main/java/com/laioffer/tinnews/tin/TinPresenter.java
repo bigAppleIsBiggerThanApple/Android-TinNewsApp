@@ -1,5 +1,6 @@
 package com.laioffer.tinnews.tin;
 
+import com.laioffer.tinnews.profile.CountryEvent;
 import com.laioffer.tinnews.retrofit.response.News;
 
 import java.util.List;
@@ -16,6 +17,14 @@ public class TinPresenter implements TinContract.Presenter {
         this.model.setPresenter(this);
     }
 
+    public void onEvent(CountryEvent countryEvent) {
+        if (this.view != null) {
+            //7.6
+            this.model.fetchData(countryEvent.country);
+        }
+    }
+
+
     @Override
     public void onCreate() {
 
@@ -31,7 +40,7 @@ public class TinPresenter implements TinContract.Presenter {
         //hold the reference
         this.view = view;
         //5.7 start to fetchData
-        this.model.fetchData();
+        this.model.fetchData("us");
     }
 
     @Override

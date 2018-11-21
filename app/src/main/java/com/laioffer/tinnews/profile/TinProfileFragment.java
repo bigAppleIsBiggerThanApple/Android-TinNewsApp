@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.laioffer.tinnews.R;
 import com.laioffer.tinnews.common.ViewModelAdapter;
 import com.laioffer.tinnews.mvp.MvpContract;
 import com.laioffer.tinnews.mvp.MvpFragment;
+import com.laioffer.tinnews.save.detail.TitleViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,11 +53,23 @@ public class TinProfileFragment extends MvpFragment<ProfileContract.Presenter> i
 
     @Override
     public void setView() {
+        //如果没有这个就会一直重复setView，因为每次activity到stop的时候，fragment也stop了，然后activity恢复的时候，fragment又会重新create一次。
+        if (!viewModelAdapter.isEmpty()) {
+            return;
+        }
 
+        viewModelAdapter.addViewModel(new TitleViewModel(getString(R.string.setting), R.layout.setting_title_layout));
+
+        viewModelAdapter.addViewModel(new RowTextViewModel(getString(R.string.clear_cache), presenter.getCacheClearListener()));
+
+        viewModelAdapter.addViewModel(new TitleViewModel(getString(R.string.change_source), R.layout.setting_title_layout));
+
+        viewModelAdapter.addViewModel(new RowTextViewModel(getString(R.string.us), presenter.getOnCountryChangeListener(getString(R.string.us))));
+        viewModelAdapter.addViewModel(new RowTextViewModel(getString(R.string.de), presenter.getOnCountryChangeListener(getString(R.string.de))));
     }
 
     @Override
     public void onCacheCleared() {
-
+        Toast.makeText(getContext(), "Cache has been cleared", Toast.LENGTH_SHORT).show();
     }
 }

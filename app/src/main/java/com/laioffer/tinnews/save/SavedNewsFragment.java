@@ -64,13 +64,11 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
         } else {
             emptyState.setVisibility(View.GONE);
         }
-        if (newsList.size() != 0){
-            List<SavedNewsViewModel> models = new LinkedList<>();
-            for (News news : newsList){
-                models.add(new SavedNewsViewModel(news, tinFragmentManager));
-            }
-            savedNewsAdapter.addViewModels(models);
+        List<SavedNewsViewModel> models = new LinkedList<>();
+        for (News news : newsList) {
+            models.add(new SavedNewsViewModel(news, tinFragmentManager));
         }
+        savedNewsAdapter.addViewModels(models);
 
     }
 }

@@ -65,6 +65,8 @@ dependencies {
     implementation "android.arch.persistence.room:guava:$room_version"
 //7.2 add Room Dependency
 
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
 }

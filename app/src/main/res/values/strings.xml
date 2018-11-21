@@ -10,4 +10,11 @@
     <string name="author_unknown">Unknown Author</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="clear_cache">Clear Cache</string>
+    <string name="setting">Setting</string>
+
+    <string name="change_source">Change Source</string>
+    <string name="de">de</string>
+    <string name="us">us</string>
 </resources>

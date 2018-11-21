@@ -15,6 +15,8 @@ public class TitleViewModel extends BaseViewModel<TitleViewModel.TitleViewModelH
         this.title = title;
     }
 
+
+
     public TitleViewModel(String title, @LayoutRes int layout) {
         super(layout);
         this.title = title;

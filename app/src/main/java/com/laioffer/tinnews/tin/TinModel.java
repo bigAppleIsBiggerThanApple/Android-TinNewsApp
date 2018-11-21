@@ -36,8 +36,8 @@ public class TinModel implements TinContract.Model {
     }
 
     @Override
-    public void fetchData() {
-        newsRequestApi.getNewsByCountry("us")
+    public void fetchData(String country) {
+        newsRequestApi.getNewsByCountry(country)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(baseResponse -> baseResponse != null && baseResponse.articles != null)
